@@ -9,23 +9,27 @@ $(document).ready(function() {
     var totalVat = 0.0;
     var payableAmount = 0.0;
     var bill = 0.0;
-    var registeredCustomer;
     var phoneNo = '';
     var customerName = '';
-
-
-    $('#add-customer-btn').click(function() {
-        $('#add-customer-form').show();
-    });
+    var cashReceived = 0.0;
+    var changeAmount = 0.0;
+    var paymentType = '';
+    var cardType='';
+    var transactionID = '';
 
     $('#floatingSelect').select2();
     $('#customerDropdown').select2();
+    $('#subCategorySelect').select2();
+    $('#subCategorySearch').select2();
+    $('#itemSearch').select2();
 
     $('#adjust').change(function() {
         var adjust = parseFloat($('#adjust').val());
         var payable = parseFloat($('#payable-amount').val());
         bill = payable - adjust;
-        $('#bill').val(bill);
+        $('#bill').val(bill.toFixed(2));
+        $('.paybill').val(bill.toFixed(2));
+        $('#bills').text(bill.toFixed(2));
     });
 
     $('#paymentTypeSelect').change(function() {
@@ -60,7 +64,7 @@ $(document).ready(function() {
         }
         var changeBDT = rcvValue - (payableValue-adjustValue);
     
-        $('#dueField').val(changeBDT);
+        $('#dueField').val(changeBDT.toFixed(2));
     });
     
     $('#myForm').submit(function(event) {
@@ -96,14 +100,16 @@ $(document).ready(function() {
         totalVat = grandTotal * vat;
         payableAmount = grandTotal + totalVat;
         bill = payableAmount;
-        $('#grand-total').val(grandTotal);
-        $('#discount-btn').val(discountInPercentage);
-        $('#vat').val(totalVat);
-        $('#payable-amount').val(payableAmount);
-        $('#bill').val(bill);
+        $('#grand-total').val(grandTotal.toFixed(2));
+        $('#discount-btn').val(discountInPercentage.toFixed(2));
+        $('#vat').val(totalVat.toFixed(2));
+        $('#payable-amount').val(payableAmount.toFixed(2));
+        $('#bill').val(bill.toFixed(2));
+        $('.paybill').val(bill.toFixed(2));
+        $('#bills').text(bill.toFixed(2));
         $('#nameDup').val(customerName);
         $('#phoneDup').val(phoneNo);
-        $('#floatingSelect').val('');
+        // $('#floatingSelect').val('');
         $('#id1').val('');
         $('#id2').val('');
         
@@ -135,10 +141,13 @@ $(document).ready(function() {
         });
         totalVat = grandTotal * vat;
         payableAmount = grandTotal + totalVat;
-
-        $('#grand-total').val(grandTotal);
-        $('#vat').val(totalVat);
-        $('#payable-amount').val(payableAmount);
+        bill = payableAmount;
+        $('#grand-total').val(grandTotal.toFixed(2));
+        $('#vat').val(totalVat.toFixed(2));
+        $('#payable-amount').val(payableAmount.toFixed(2));
+        $('#bill').val(bill.toFixed(2));
+        $('.paybill').val(bill.toFixed(2));
+        $('#bills').text(bill.toFixed(2));
         //$('.qty').text(quantityValue);
         //$('.total').text(totalPrice);
     });
@@ -164,12 +173,73 @@ $(document).ready(function() {
 
         totalVat = grandTotal * vat;
         payableAmount = grandTotal + totalVat;
-        $('#grand-total').val(grandTotal);
-        $('#vat').val(totalVat);
-        $('#payable-amount').val(payableAmount);
+        bill = payableAmount;
+        $('#grand-total').val(grandTotal.toFixed(2));
+        $('#vat').val(totalVat.toFixed(2));
+        $('#payable-amount').val(payableAmount.toFixed(2));
+        $('#bill').val(bill.toFixed(2));
+        $('.paybill').val(bill.toFixed(2));
+        $('#bills').text(bill.toFixed(2));
         //$('.qty').text(quantityValue);
         //$('.total').text(totalPrice);
     });
+
+    $('#payButton').click(function() {
+        cashReceived = parseFloat($('#cashReceived').val());
+        changeAmount = cashReceived - bill;
+        $('#cashPaymentModal').modal('hide');
+        $('#returnValue').text(changeAmount.toFixed(2));
+        $('#paidValue').text(cashReceived);
+        paymentType = 'cash';
+        $('#paymentMethod').text(paymentType);
+    });
+
+    $('#mobilePayButton').click(function() {
+        paymentType = $('#paymentTypeSelect').val();
+        changeAmount = 0.0;
+        $('#mobilePaymentModal').modal('hide');
+        $('#returnValue').text(changeAmount.toFixed(2));
+        $('#paidValue').text(bill.toFixed(2));
+        $('#paymentMethod').text(paymentType);
+    });
+
+    $('#bankPayButton').click(function() {
+        paymentType = $('#bankNameSelect').val();
+        transactionID = $('#transactionId').val();
+        changeAmount = 0.0;
+        cardType = ' , '+ $('#cardTypeSelect').val() +' card';
+        $('#bankPaymentModal').modal('hide');
+        $('#returnValue').text(changeAmount.toFixed(2));
+        $('#paidValue').text(bill.toFixed(2));
+        $('#paymentMethod').text(paymentType);
+        $('#cardType').text(cardType);
+    });
+    var itemsByCategory = {
+        1: ['Item 1', 'Item 2', 'Item 3'],
+        2: ['Item 4', 'Item 5'],
+        3: ['Item 6', 'Item 7', 'Item 8','Item 8','Item 8','Item 8' ,'Item 9','Item 9','Item 9','Item 9','Item 9','Item 9','Item 9','Item 9','Item 9','Item 9','Item 9']
+      };
+  
+      // Handle category click event
+      $('.category-card').on('click', function() {
+        var category = $(this).data('category');
+        var items = itemsByCategory[category];
+  
+        // Clear existing items
+        $('#item-list').empty();
+  
+        // Append new items
+        $.each(items, function(index, item) {
+          var itemCard = '<div class="col-xs-3">' +
+                           '<div class="item-card panel panel-default">' +
+                             '<div class="panel-body">' + item + '</div>' +
+                           '</div>' +
+                         '</div>';
+  
+          $('#item-list').append(itemCard);
+        });
+      });
+
     $('#finalSubmit-form').submit(function(event) {
         
         event.preventDefault(); // Prevent form submission
@@ -305,4 +375,5 @@ $(document).ready(function() {
         // Display invoice
         $('#invoiceResult').html(invoiceHTML);
     });
+    
 });
