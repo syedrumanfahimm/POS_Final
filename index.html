@@ -94,7 +94,7 @@
             
         }
         .panel-body{
-            padding-bottom: 0px !important;
+            padding-bottom: 2px !important;
             padding-top: 3px !important;
         }
 
@@ -105,9 +105,71 @@
 
         }
         .table-container {
-            max-height: calc(100vh - 400px);
+            max-height: calc(100vh - 260px);
             overflow-y: auto;
         }
+        .item-container{
+            max-height: calc(100vh - 520px);
+            overflow-y: auto;
+        }
+        .sub-container{
+            max-height: calc(100vh - 550px);
+            overflow-y: auto;
+        }
+        .white{
+            color: wheat;
+        }
+
+        .category-card,
+        .item-card {
+            width: 90px;
+            margin-bottom: 8px;
+            color: #fff;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .category-card:hover,
+        .item-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-card .panel-body,
+        .item-card .panel-body {
+            padding: 20px;
+        }
+
+        .item-card .panel-body {
+            min-height: 10px;
+        }
+        .category-card.subcategory {
+            background-color: #FF637D;
+        }
+
+        /* .category-card.category-2 {
+        background-color: #4A90E2;
+        }
+
+        .category-card.category-3 {
+        background-color: #7ED321;
+        } */
+        .item-card {
+            background-color: #7ED321;
+        }
+        .advertisement {
+            background-color: #f5f5f5;
+            padding: 10px;
+        }
+
+        .banner {
+            background-color: #e74c3c;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        
     </style>
   </head>
   <body>
@@ -120,9 +182,23 @@
                 <div class="panel-body form-center">
                     <form id="myForm" action="">
                         <div class="row">
-                            <div class="col-lg-3">               
+                            <div class="col-lg-1">
+
+                            </div>
+                            <div class="col-lg-2">               
                                 <div class="form-group">
-                                    <label for="floatingSelect">Category-Subcategory</label>
+                                    <label for="subCategorySelect">Subcategory</label>
+                                    <select class="form-control" id="subCategorySelect">
+                                        <option value=""></option>
+                                        <option value="Shirt-Tshirt">Shirt</option>
+                                        <option value="Pant-Jeans">Pant</option>
+                                        <option value="Pant-Trouser">Punjabi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-lg-2">               
+                                <div class="form-group">
+                                    <label for="floatingSelect">Item</label>
                                     <select class="form-control" id="floatingSelect">
                                         <option value=""></option>
                                         <option value="Shirt-Tshirt">Shirt-Tshirt</option>
@@ -131,19 +207,19 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="form-group field">
                                     <label for="id1">Unit Price</label>
                                     <input type="number" class="form-control" id="id1">
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                                 <div class="form-group field">
                                     <label for="id2">Quantity</label>
                                     <input type="number" class="form-control" id="id2" >
                                 </div>
                             </div>
-                            <div class="col-lg-3">
+                            <div class="col-lg-2">
                             <div class="form-group" id="add-btn">
                                 <button type="submit" class="btn btn-primary" id="add-btn"><i class="bi bi-plus-lg"></i></button>
                             </div>         
@@ -177,36 +253,154 @@
           </div>
           <div class="col-sm-4">
             <div class="panel panel-primary">
-              <div class="panel-heading">Sub-category</div>
-              <div class="panel-body">
-                <!-- Content for Box 1 goes here -->
+              <div class="panel-heading">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="col-sm-4 control-label" for="subCategorySearch">Subcategory</label>
+                        <div class="col-sm-8">
+                            <select class="form-control" id="subCategorySearch">
+                                <option value=""></option>
+                                <option value="Shirt-Tshirt">Shirt</option>
+                                <option value="Pant-Jeans">Pant</option>
+                                <option value="Pant-Trouser">Punjabi</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+              </div>
+              <div class="panel-body sub-container">
+                <div class="row" id="category-list">
+                    <div class="col-xs-3">
+                      <div class="category-card panel panel-default subcategory" data-category="1">
+                        <div class="panel-body">Category 1</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-3">
+                      <div class="category-card panel panel-default subcategory" data-category="2">
+                        <div class="panel-body">Category 2</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-3">
+                      <div class="category-card panel panel-default subcategory" data-category="3">
+                        <div class="panel-body">Category 3</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="category-card panel panel-default subcategory" data-category="3">
+                          <div class="panel-body">Category 4</div>
+                        </div>
+                      </div>
+                </div>
+                <div class="row" id="category-list">
+                    <div class="col-xs-3">
+                      <div class="category-card panel panel-default subcategory" data-category="1">
+                        <div class="panel-body">Category 1</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-3">
+                      <div class="category-card panel panel-default subcategory" data-category="2">
+                        <div class="panel-body">Category 2</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-3">
+                      <div class="category-card panel panel-default subcategory" data-category="3">
+                        <div class="panel-body">Category 3</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="category-card panel panel-default subcategory" data-category="3">
+                          <div class="panel-body">Category 4</div>
+                        </div>
+                      </div>
+                </div>
+                <div class="row" id="category-list">
+                    <div class="col-xs-3">
+                      <div class="category-card panel panel-default subcategory" data-category="1">
+                        <div class="panel-body">Category 1</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-3">
+                      <div class="category-card panel panel-default subcategory" data-category="2">
+                        <div class="panel-body">Category 2</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-3">
+                      <div class="category-card panel panel-default subcategory" data-category="3">
+                        <div class="panel-body">Category 3</div>
+                      </div>
+                    </div>
+                    <div class="col-xs-3">
+                        <div class="category-card panel panel-default subcategory" data-category="3">
+                          <div class="panel-body">Category 4</div>
+                        </div>
+                      </div>
+                </div>
+                  
               </div>
             </div>
             <div class="panel panel-success">
-              <div class="panel-heading">Item</div>
-              <div class="panel-body">
-                <!-- Content for Box 2 goes here -->
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="form-group">
+                            <label class="col-sm-4 control-label" for="itemSearch">Items</label>
+                            <div class="col-sm-8">
+                                <select class="form-control" id="itemSearch">
+                                    <option value=""></option>
+                                    <option value="Shirt-Tshirt">Item 1</option>
+                                    <option value="Pant-Jeans">Item 2</option>
+                                    <option value="Pant-Trouser">Item 3</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              <div class="panel-body item-container">
+                <div class="row" id="item-list">
+                    <!-- Items will be dynamically loaded here -->
+                  </div>
               </div>
             </div>
             <div class="panel panel-info">
               <div class="panel-heading">Mini Dashboard</div>
               <div class="panel-body">
-                <!-- Content for Box 3 goes here -->
+                <div class="row">
+                    <div class="col-xs-4">
+                      <div class="text-center">
+                        <span class="glyphicon glyphicon-stats"></span>
+                      </div>
+                      <h4 class="text-center">Today Sales</h4>
+                      <p class="text-center">$1500</p>
+                    </div>
+                    <div class="col-xs-4">
+                      <div class="text-center">
+                        <span class="glyphicon glyphicon-user"></span>
+                      </div>
+                      <h4 class="text-center">Customers</h4>
+                      <p class="text-center">500</p>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="text-center">
+                          <span class="glyphicon glyphicon-blackboard"></span>
+                        </div>
+                        <h4 class="text-center">Salesman</h4>
+                        <p class="text-center">Sakib</p>
+                      </div>
+                  </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="big-container">
+        <div class="big-container container-fluid">
             <div class="row">
                 <div class="payment-field-container">
                         <div class="col-xs-3">
                           <div class="panel panel-info">
-                            <div class="panel-heading">Payment</div>
+                            <!-- <div class="panel-heading">Payment</div> -->
                             <div class="panel-body form-center">
                               <div class="footer-card pay-with-points">Pay with Points</div>
                               <div class="footer-card cash-payment" type="click" data-toggle="modal" data-target="#cashPaymentModal">Cash Payment</div>
-                              <div class="footer-card mobile-banking">Mobile Banking</div>
-                              <div class="footer-card card-payment">Card Payment</div>
+                              <div class="footer-card mobile-banking" type="click" data-toggle="modal" data-target="#mobilePaymentModal">Mobile Banking</div>
+                              <div class="footer-card card-payment" type="click" data-toggle="modal" data-target="#bankPaymentModal">Card Payment</div>
                             </div>
                           </div>
                           <div class="panel panel-info">
@@ -215,17 +409,22 @@
                                       Total: <span id="bills">0.0</span>
                                   </div>
                                   <div class="footer-field">
-                                      Return: <span id="returnValue">0.0</span>
+                                      Change: <span id="returnValue">0.0</span>
                                   </div>
                                   <div class="footer-field">
                                       Paid: <span id="paidValue">0.0</span>
                                   </div>
                               </div>
+                              <div class="panel-body">
+                                <div>
+                                    Paid with: <span id="paymentMethod"></span> <span id="cardType"></span>
+                                </div>
+                              </div>
                             </div>
                         </div>
                         <div class="col-xs-5">
                           <div class="panel panel-warning">
-                            <div class="panel-heading">Part 2</div>
+                            <!-- <div class="panel-heading">Part 2</div> -->
                             <div class="panel-body">
                               <div class="col-xs-4">
                                   <div class="form-group ">
@@ -305,9 +504,15 @@
                         </div>
                         <div class="col-xs-4">
                             <div class="panel panel-danger">
-                                <div class="panel-heading">Advertisement</div>
+                                <!-- <div class="panel-heading">Advertisement</div> -->
                                 <div class="panel-body">
-                                  
+                                    <div class="advertisement">
+                                        <div class="banner">
+                                          <!-- Add your advertisement content here -->
+                                          <h2>Advertisement</h2>
+                                          <p>Check out our amazing products!</p>
+                                        </div>
+                                      </div>
                                 </div>
                             </div>
                         </div>
@@ -315,9 +520,13 @@
             </div>
             <div class="row">
                 <div class="col-xs-12">
-                    <div class="panel panel-danger">
-                        <div class="panel-body">
-                            <p>Advertisement</p>
+                    <div class="panel panel-default" style="height: 15px; padding: 0; border: none; background-color: #eaeaea;">
+                        <div class="panel-body" style="margin: 0; padding: 0;">
+                          <div class="row">
+                            <div class="col-xs-12" style="background-color: #f8d7da; border-radius: 3px; text-align: center; padding: 5px;">
+                              <h4 style="color: #721c24; margin: 0;">Special Offer!</h4>
+                            </div>
+                          </div>
                         </div>
                     </div>
                 </div>
@@ -326,7 +535,7 @@
         <div class="modal fade" id="cashPaymentModal" tabindex="-1" role="dialog" aria-labelledby="cashPaymentModalLabel">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
-                <div class="modal-header">
+                <div class="modal-header cash-payment white">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
@@ -336,21 +545,105 @@
                   <form>
                     <div class="form-group">
                       <label for="totalBill">Total Bill</label>
-                      <input type="text" class="form-control" id="totalBill" placeholder="Enter total bill amount">
+                      <input type="text" class="form-control readonly-input paybill" placeholder="0.0" readonly>
                     </div>
                     <div class="form-group">
                       <label for="cashReceived">Cash Received</label>
-                      <input type="text" class="form-control" id="cashReceived" placeholder="Enter cash received amount">
+                      <input type="text" class="form-control" id="cashReceived" placeholder="0.0">
                     </div>
                   </form>
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-primary">Pay</button>
+                  <button type="button" class="btn cash-payment white" id="payButton">Pay</button>
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
               </div>
             </div>
+        </div>
+        <div class="modal fade" id="mobilePaymentModal" tabindex="-1" role="dialog" aria-labelledby="mobilePaymentModalLabel">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header mobile-banking white">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <h4 class="modal-title" id="mobilePaymentModalLabel">Mobile Banking</h4>
+                </div>
+                <div class="modal-body">
+                  <form>
+                    <div class="form-group">
+                        <label for="paymentTypeSelect">Payment Type:</label>
+                        <select class="form-control" id="paymentTypeSelect">
+                            <option value="">Select</option>
+                            <option value="bKash">bKash</option>
+                            <option value="Nagad">Nagad</option>
+                            <option value="Rocket">Rocket</option>
+                            <option value="upay">Upay</option>
+                            <option value="surecash">Sure Cash</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                      <label for="paybill">Total Bill</label>
+                      <input type="text" class="form-control readonly-input paybill" placeholder="0.0" readonly>
+                    </div>
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn mobile-banking white" id="mobilePayButton">Pay</button>
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+        </div>
+        <div class="modal fade" id="bankPaymentModal" tabindex="-1" role="dialog" aria-labelledby="bankPaymentModalLabel">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header card-payment white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="bankPaymentModalLabel">Card Payment</h4>
+              </div>
+              <div class="modal-body">
+                <form>
+                  <div class="form-group">
+                      <label for="bankNameSelect">Bank Name:</label>
+                      <select class="form-control" id="bankNameSelect">
+                          <option value="">Select</option>
+                          <option value="brac">Brac Bank</option>
+                          <option value="dbbl">DBBL</option>
+                          <option value="ibbl">IBBL</option>
+                          <option value="city">City Bank</option>
+                          <option value="exim">Exim Bank</option>
+                      </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="cardTypeSelect">Card Type:</label>
+                    <select class="form-control" id="cardTypeSelect">
+                        <option value="">Select</option>
+                        <option value="debit">Debit</option>
+                        <option value="credit">Credit</option>
+                        <option value="visa">Visa</option>
+                        <option value="nexus">Nexus</option>
+                    </select>
+                </div>
+                  <div class="form-group">
+                    <label for="paybill">Total Bill</label>
+                    <input type="text" class="form-control readonly-input paybill" placeholder="0.0" readonly>
+                  </div>
+                  <div class="form-group">
+                    <label for="transactionId">Transaction Id:</label>
+                    <input type="text" class="form-control" placeholder="Enter the transaction ID">
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn card-payment white" id="bankPayButton">Pay</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
           </div>
+      </div>
       </div>
 
 
